@@ -11,6 +11,7 @@ var TodoStore = Reflux.createStore({
     }
 });
 
+
 var TodoComponent = React.createClass({
     mixins:[Reflux.listenTo(TodoStore,'onStatusChange')],
     getInitialState: function () {

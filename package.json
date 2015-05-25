@@ -1,0 +1,24 @@
+{
+  "name": "react-reflux",
+  "description": "react reflux demo",
+  "version": "1.0.0",
+  "author": {
+    "name": "yuyangyang"
+  },
+  "repository": {
+    "type": "svn",
+    "url": "https://github.com/yuyang041060120/react-reflux"
+  },
+  "main": "server/app",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "keywords": [
+    "reflux",
+    "react"
+  ],
+  "dependencies": {
+    "express": "~4.11.2",
+    "body-parser": "~1.11.0"
+  }
+}
