@@ -57,7 +57,7 @@ Reflux的单向数据流模式主要由actions和stores组成。例如，当组�
  - stores可以监听actions的行为，无需进行冗杂的switch判断
  - stores可以相互监听，可以进行进一步的数据聚合操作，类似于，map/reduce
  - waitFor被连续和平行的数据流所替代
- - 
+
 #创建Action#
 
     var statusUpdate = Reflux.createAction(options);
@@ -472,7 +472,7 @@ Store可以响应Action的行为，并同服务器交互。
 
  - 当组件的生命周期结束时需要解除对Store的监听
  - 当Store调用trigger时，才会执行onStatusChange函数，所以每次Store更新时，需要手动调用trigger函数
- - 
+
 ##Mixins##
     
     var TodoComponent = React.createClass({
