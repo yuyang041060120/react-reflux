@@ -44,8 +44,8 @@ Reflux的单向数据流模式主要由actions和stores组成。例如，当组�
         }
     });
     
-    
     React.render(<TodoComponent />, document.getElementById('container'));
+    
 #同React Flux比较#
 ##相同点##
 
@@ -57,7 +57,9 @@ Reflux的单向数据流模式主要由actions和stores组成。例如，当组�
  - stores可以监听actions的行为，无需进行冗杂的switch判断
  - stores可以相互监听，可以进行进一步的数据聚合操作，类似于，map/reduce
  - waitFor被连续和平行的数据流所替代
+ - 
 #创建Action#
+
     var statusUpdate = Reflux.createAction(options);
 返回值是一个函数，调用这个函数就会触发相应的事件，在store中监听这个函数，并作相应的处理
 
@@ -73,11 +75,14 @@ Reflux的单向数据流模式主要由actions和stores组成。例如，当组�
     });
     
     addItem({name: 'xxx'});
+    
 ##创建多个Action##
+
     var TodoActions = Reflux.createActions([
         'addItem',
         'deleteItem'
     ]);
+    
 store监听actions的行为：
 
     var TodoActions = Reflux.createActions([
@@ -100,10 +105,12 @@ store监听actions的行为：
     
     TodoActions.addItem({name:'xxx'});
     TodoActions.deleteItem({name:'yyy'});
+    
 ##异步Action##
 真实的应用场景中，几乎所有的操作都会向后端请求，而这些操作都是异步的，Reflux也提供了相应的Promise接口
     
     var getAll = Reflux.createAction({asyncResult:true});
+    
 例如获取全部数据：
 
     var getAll = Reflux.createAction({asyncResult: true});
@@ -131,7 +138,9 @@ store监听actions的行为：
         .catch(function (err) {
             throw err;
         });
+        
 ##Action hooks##
+
 Reflux为每个action都提供了两个hook方法
 
  - preEmit(params)，action emit之前调用，参数是action传递过来的，返回值会传递给shouldEmit
@@ -194,7 +203,9 @@ Reflux为每个action都提供了两个hook方法
  
 
 > 注意几个返回值和参数的关系
+
 ##Action Methods##
+
 当需要给所有的action添加公用方法时，可以这么干：
 
     Reflux.ActionMethods.print = function (str) {
@@ -213,7 +224,9 @@ Reflux为每个action都提供了两个hook方法
     });
     
     addItem.print('xxx');
+    
 ##trigger、triggerAsync和triggerPromise##
+
 **直接调用addItem()**实际上是调用trigger或者triggerAsync或者triggerPromise，它们区别在于
 
     var addItem = Reflux.createAction(); addItem();                 #默认调用triggerAsync，相当于addItem.triggerAsync()
@@ -243,6 +256,7 @@ Store可以响应Action的行为，并同服务器交互。
     });
     
     addItem({name: 'xxx'});
+    
 ##监听多个Action##
 ###作死写法###
 
@@ -305,6 +319,7 @@ Store可以响应Action的行为，并同服务器交互。
     
     TodoActions.item1({name: 'xxx'});
     TodoActions.item2({name: 'yyy'});
+    
 ###listenToMany###
 还好Reflux给我们提供了listenToMany方法，避免重复劳动：
 
@@ -338,6 +353,7 @@ Store可以响应Action的行为，并同服务器交互。
 处理方法只需让action的标识首字母大写并加上on就可以了。
 
 > 标识如果首字母大写就会识别不了，例如将上面的**item1**改成**Itme1**。这坑爹的！
+
 ###listenables###
 
     var TodoActions = Reflux.createActions([
@@ -365,6 +381,7 @@ Store可以响应Action的行为，并同服务器交互。
     
     TodoActions.item1({name: 'xxx'});
     TodoActions.item2({name: 'yyy'});
+    
 一般我们写真实应用的时候都应该采用这种写法！！！
 ##Store Methods##
 拓展Store的公用方法有两种方式。
@@ -386,6 +403,7 @@ Store可以响应Action的行为，并同服务器交互。
     });
     
     TodoStore.print('rrr');
+    
 ###方式二###
 
     var Mixins = {
@@ -422,6 +440,7 @@ Store可以响应Action的行为，并同服务器交互。
             this.trigger(this.items);
         }
     });
+    
 ##基本##
     
     var TodoComponent = React.createClass({
@@ -453,6 +472,7 @@ Store可以响应Action的行为，并同服务器交互。
 
  - 当组件的生命周期结束时需要解除对Store的监听
  - 当Store调用trigger时，才会执行onStatusChange函数，所以每次Store更新时，需要手动调用trigger函数
+ - 
 ##Mixins##
     
     var TodoComponent = React.createClass({
@@ -552,6 +572,7 @@ Store可以响应Action的行为，并同服务器交互。
 对数据加了一层过滤器。
 
 > 以上便Component同Store交互的内容，大家可以根据实际情况选择不同的写法。
+
 #小结#
 我这人喜欢拿代码来表述思想。
 
